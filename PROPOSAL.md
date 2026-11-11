@@ -1,15 +1,25 @@
 # Proposal
 
-At most one page. Replace the prompts under each heading. Leave the headings.
-
 ## Hypothesis
 
-State the claim in one sentence. Then name the single quantity you will forecast or estimate, with its units and the time window.
+A probabilistic model using historical bicycle rentals and calendar patterns can reduce expected hourly capacity-planning loss compared with a seasonal baseline. The target is **total Capital Bikeshare rentals in the next hour**, measured in rentals/hour across Washington, DC.
 
 ## Data
 
-Name the source, the unit of observation, the sample size, the time span, and how the data were collected. Say how what you measure differs from the quantity the decision needs. Say whether the terms let you republish the files. A release asset is a republished copy. If the terms do not allow that, the files stay off GitHub and `data/README.md` gives the command that downloads them from the source.
+The project uses the **UCI Bike Sharing Dataset** (DOI: 10.24432/C5W894), containing 17,379 hourly records from 2011–2012. Each observation represents completed bicycle rentals during one hour, collected from Capital Bikeshare records and supplemented with calendar and weather information.
+
+An **Open-Meteo live weather API** will provide current temperature, precipitation, and wind forecasts for an interactive prototype. Historical model evaluation will use only information available before each forecast hour; current API data will support a clearly labeled demonstration rather than claims of validated present-day accuracy.
+
+Completed rentals may underestimate actual customer demand when bicycles are unavailable, creating potential downward bias. The dataset does not include unmet requests or actual capacity. UCI distributes the dataset under **CC BY 4.0**, permitting redistribution with attribution. Data sources, download commands, and SHA-256 checksums will be documented in `data/README.md`.
 
 ## Decision affected by the model
 
-Name who acts, and what they will do differently because of the prediction. Say which mistake costs more.
+A hypothetical bike-sharing operations planner will use the predictive distribution to choose a **system-wide hourly rental-service capacity target**, minimizing expected shortage and excess-capacity costs.
+
+The decision loss is:
+
+**L(q,D) = cₛ max(D − q, 0) + cₑ max(q − D, 0)**
+
+Here, `q` is planned capacity, `D` is recorded rentals, and `cₛ > cₑ`, meaning unmet modeled demand is costlier than unused capacity.
+
+A negative binomial regression will be compared with a seasonal baseline using chronological held-out data, predictive calibration, simulated parameter recovery, and decision loss. Python-based visualizations and an optional live API dashboard will demonstrate forecast uncertainty, risk sensitivity, and the hypothetical value of better predictions.
