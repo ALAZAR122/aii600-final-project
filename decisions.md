@@ -1,6 +1,6 @@
-## 2026-11-12: Specify numerical loss and seasonal baseline
+## 2026-11-12: Chronological evaluation and demonstration scope
 
-- **Decision.** Use a 4:1 shortage-to-excess cost ratio, with shortage cost 4 and excess-capacity cost 1 hypothetical loss unit per recorded rental. Use the 80th percentile of the negative binomial predictive distribution as the hourly capacity target. Compare against the recorded rental count from the same hour seven days earlier.
-- **Why.** Professor feedback requires numerical costs, an explicit capacity quantile, a named seasonal baseline, and held-out evaluation using the same loss. The observed outcome is recorded completed rentals, not unobserved customer demand.
-- **Alternative.** Equal shortage and excess costs, resulting in median-based capacity; a Poisson model may also serve as a secondary statistical comparison.
-- **Revisit.** Revise the cost ratio if credible operational estimates become available. Reconsider the model if held-out loss or calibration is poor. Clarify the quantile notation in the professor's GitHub issue before finalizing the analysis.
+- **Decision.** Use chronological training, validation, and held-out test periods for the recorded hourly rental series. The planned split is training before July 1, 2012; validation from July 1 through September 30, 2012; and testing from October 1 through December 31, 2012. Keep Open-Meteo as a demonstration of current weather information and illustrative scenarios, not a validated current-day rental forecast.
+- **Why.** Chronological evaluation respects the ordering of observations and avoids training on future outcomes. The historical rental dataset does not establish present-day forecasting accuracy. Random simulation results will use seed 20261111 for reproducibility.
+- **Alternative.** Random train/test splitting or presenting historical model outputs as live operational forecasts.
+- **Revisit.** Reconsider the split if there is evidence of leakage or inadequate evaluation coverage. Reconsider live forecasting claims only after obtaining current rental data and conducting a separate out-of-sample validation.
