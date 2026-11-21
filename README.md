@@ -14,6 +14,29 @@ Follow the [final project lab](https://vsokolov.org/labs/final-project-lab.html)
 
 **Project Type:** Individual (Solo Project)
 
+
+## FlowCast AI Live — implemented analysis and preliminary results
+
+**Question.** Can an NB2 predictive distribution of next-hour **completed system-wide bicycle rentals** improve a hypothetical hourly capacity decision compared with the same-hour previous-week baseline?
+
+**Data.** UCI Bike Sharing Dataset (`hour.csv`), 17,379 recorded hourly observations from 2011–2012. The notebook uses a chronological split: training before July 2012, validation July–September 2012, and held-out test October–December 2012 (2,098 test hours). Its predictors are calendar terms and historical 1-, 24-, and 168-hour rental lags.
+
+**Decision.** The hypothetical capacity target is the smallest integer at the **80th percentile of the fitted NB2 predictive rental-count distribution** under the illustrative loss `4*max(D-q,0) + max(q-D,0)`. Units are weighted rental-count loss units, **not dollars**.
+
+**Saved held-out notebook results (lower loss is better):**
+
+| Strategy | Mean weighted loss units/hour |
+|---|---:|
+| NB2 80th-percentile capacity | 105.601 |
+| Same-hour previous-week baseline | 149.752 |
+| Rounded NB2 conditional mean | 117.551 |
+
+The NB2 decision has **29.48% lower average held-out loss** than the previous-week baseline under the stated hypothetical costs. The notebook reports approximately **91% empirical coverage** for nominal 90% predictive intervals. These are saved historical outputs, not results independently rerun for this README.
+
+**Run the project:** use the Python interpreter in `.python-version`, install dependencies with `pip install -r requirements.txt`, then open `analysis.ipynb` and run all cells sequentially. The notebook downloads `hour.csv` from UCI when absent. See `data/README.md` for source and checksum requirements. The notebook's Colab setup clones this repository when necessary; a public clone or configured GitHub access is required.
+
+**Limitations.** The target measures completed rentals, not unobserved attempted rentals. The 4:1 cost ratio is illustrative, and the historical test does not validate current-day demand or real fleet deployment.
+
 ## Fork
 
 The repository is public, and so is the fork.
