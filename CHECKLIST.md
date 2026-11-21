@@ -59,3 +59,11 @@ Tick every line that the pushed `main` covers. A line you cannot tick needs one 
 ## Disclosure
 
 - [ ] One line in `README.md`: which AI tools you used, and for what.
+
+## Review notes for FlowCast AI Live (not completion ticks)
+
+- The uploaded notebook has saved raw-data plots, summary statistics, a chronological split, NB2 model, and two held-out decision-loss scores. Verify these by running the revised notebook from the top on `main`.
+- The notebook reports 1,014 wins, 22 ties, and 1,062 losses against the previous-week baseline by hour; lower **average weighted loss** is the decision criterion.
+- Before ticking the repository reproducibility item, record the exact `hour.csv` SHA-256 in `data/README.md`, verify the checksum on rerun, and pin tested dependency versions.
+- Before ticking presentation, render `presentation.html` from the revised `presentation.qmd` after the last edit.
+- For this solo project, the group pull-request item is not applicable; the course README allows solo commits directly to `main`.
